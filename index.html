@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: background 3s ease-in-out;
+        }
+        h1 {
+            font-size: 2.8em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff1493; }
+            100% { text-shadow: 0 0 20px #ff69b4; }
+        }
+        .image-container img {
+            width: 250px; /* Adjust size as needed */
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s ease-in-out;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 15px 35px;
+            font-size: 22px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            outline: none;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        .yes {
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.5);
+        }
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+        #hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            bottom: 20px; /* Move popup to bottom */
+            right: 20px; /* Positioning the popup to the right */
+            background-color: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+            font-size: 1.2em;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .fade-background {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        }
+        .btn:focus {
+            outline: none;
+        }
+        .heart-button {
+            background: #ff4081;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 64, 129, 0.4);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .heart-button:hover {
+            transform: scale(1.1);
+            background: #ff6699;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts"></div>
+
+    <h1>Will You Be My Valentine? ❤️</h1>
+
+    <div class="image-container">
+        <img id="displayImage" src="./котик 💖🫀🫀.jpeg" alt="Question Image">
+    </div>
+
+    <div class="buttons">
+        <button class="btn yes" onclick="yesClicked()">Yes</button>
+        <button class="btn no" id="noBtn" onclick="changeText()">No</button>
+    </div>
+
+    <div id="popup" class="popup">
+        <h2>Thank youu babyyyggg,❤️</h2>
+        <audio id="loveSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+    </div>
+
+    <script>
+        let messages = ["Are you sure? 😏", "Really sure? 🤔", "Think again! 😜", "Okay, fine... Yes! ❤️"];
+        let index = 0;
+
+        function yesClicked() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("displayImage").src = "love you 🤗.jpeg"; // Change to Yes image
+            document.body.classList.add("fade-background");
+            generateHearts();
+            document.getElementById("loveSound").play();
+        }
+
+        function changeText() {
+            let noBtn = document.getElementById("noBtn");
+            if (index < messages.length - 1) {
+                noBtn.innerText = messages[index];
+                index++;
+            } else {
+                noBtn.innerText = "Yes";
+                noBtn.style.backgroundColor = "#ff4081";
+                noBtn.onclick = yesClicked;
+            }
+        }
+
+        function generateHearts() {
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = Math.random() * window.innerHeight + "px";
+                heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+                document.getElementById("hearts").appendChild(heart);
+
+                setTimeout(() => { heart.remove(); }, 5000);
+            }
+        }
+    </script>
+
+</body>
+</html>
